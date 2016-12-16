@@ -3,10 +3,16 @@ package cardGame;
 public class Card implements Comparable<Card> {
 	private Rank rank;
 	private Suit suit;
+	private int value;
 
 	public Card(Rank r, Suit s) {
 		rank = r;
 		suit = s;
+		value = r.getBlackjackValue();
+	}
+	
+	public int getValue() {
+		return value;
 	}
 
 	@Override
@@ -14,11 +20,7 @@ public class Card implements Comparable<Card> {
 		int rCompare = this.rank.compareTo(o.rank);
 		int sCompare = this.suit.compareTo(o.suit);
 		
-		if (rCompare == 0) {
-			return sCompare;
-		} else {
-			return rCompare;
-		}
+		return (rCompare == 0) ? sCompare : rCompare;
 	}
 
 	@Override
