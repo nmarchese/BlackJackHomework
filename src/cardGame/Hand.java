@@ -27,4 +27,8 @@ public class Hand {
 		}
 		System.out.println("Total Value: " + getHandValue());
 	}
+	
+	public void resetHand() {
+		hand = new LinkedList<>();
+	}
 }
