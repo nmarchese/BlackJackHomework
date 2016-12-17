@@ -16,4 +16,32 @@ public class CardPlayer {
 	public Hand getHand() {
 		return hand;
 	}
+	
+	public void addToHand(Card card) {
+		hand.addCard(card);
+	}
+	
+	public void showHand() {
+		hand.showHand();
+	}
+
+	public Card showCard(int pos) {
+		return hand.showCard(pos);
+	}
+	
+	public Card showCard() {
+		return hand.showCard();
+	}
+	
+	public int getHandValue() {
+		return hand.getHandValue();
+	}
+	
+	public int upCardValue() {
+		return hand.getCardValue(0);
+	}
+	
+	public void resetHand() {
+		hand.resetHand();
+	}
 }

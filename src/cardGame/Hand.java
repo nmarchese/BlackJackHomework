@@ -3,7 +3,7 @@ package cardGame;
 import java.util.*;
 
 public class Hand {
-	List<Card> hand;
+	private List<Card> hand;
 	
 	public Hand() {
 		hand = new LinkedList<>();
@@ -31,4 +31,16 @@ public class Hand {
 	public void resetHand() {
 		hand = new LinkedList<>();
 	}
+	
+	public Card showCard(int pos) {
+		return hand.get(pos - 1);
+	}
+	public Card showCard() {
+		return hand.get(hand.size()-1);
+	}
+	
+	public int getCardValue(int pos) {
+		return hand.get(pos).getValue();
+	}
+	
 }
