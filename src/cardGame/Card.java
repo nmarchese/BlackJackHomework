@@ -4,13 +4,34 @@ public class Card implements Comparable<Card> {
 	private Rank rank;
 	private Suit suit;
 	private int value;
+	private String suitU;
+	private boolean isAce;
 
 	public Card(Rank r, Suit s) {
 		rank = r;
 		suit = s;
 		value = r.getBlackjackValue();
+		suitU = s.getSuitC();
+		if (value == 11) {
+			isAce = true;
+		} else {
+			isAce = false;
+		}
 	}
 	
+	public void aceToOne() {
+		if (value == 11);
+		value = 1;
+	}
+	
+	public boolean isAce() {
+		return isAce;
+	}
+
+	public Card(int value, char suitC) {
+		this.value = value;
+	}
+
 	public int getValue() {
 		return value;
 	}
@@ -19,13 +40,13 @@ public class Card implements Comparable<Card> {
 	public int compareTo(Card o) {
 		int rCompare = this.rank.compareTo(o.rank);
 		int sCompare = this.suit.compareTo(o.suit);
-		
+
 		return (rCompare == 0) ? sCompare : rCompare;
 	}
 
 	@Override
 	public String toString() {
-		return (rank + " of " + suit).toLowerCase();
+		return (rank + " of " + suit + suitU).toLowerCase();
 	}
 
 	@Override

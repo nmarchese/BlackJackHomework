@@ -45,42 +45,46 @@ public class Blackjack {
 		while (again.equals("Y")) {
 			boolean blackjack = false;
 			player.addToHand(deck.dealCard());
-			player.addToHand(deck.dealCard());
 			dealer.addToHand(deck.dealCard());
+			player.addToHand(deck.dealCard());
 			dealer.addToHand(deck.dealCard());
 
 			System.out.println("\nThe Deal:\n");
 			System.out.println("\t" + player.name() + "\t\t" + dealer.name());
 			System.out.println("------------------|-------------------");
-			System.out.println(player.showCard(1) + "       " + dealer.showCard(1));
-			System.out.println(player.showCard(2) + "            ?");
+			System.out.println(player.showCard(1) + "     " + dealer.showCard(1));
+			System.out.println(player.showCard(2) + "          ?");
 			System.out.println("--------------------------------------");
 			System.out.println("\t" + player.getHandValue() + "\t\t" + dealer.upCardValue() + "+?");
 			if (player.getHandValue() == 21 && dealer.getHandValue() != 21) {
 				System.out.println("\n\t\tBLACKJACK!!!\n\n");
 				blackjack = true;
 			} else if (dealer.getHandValue() == 21) {
-				System.out.println("\n   Dealer Blackjack, Dealer wins.\n\n");
+				System.out.println("\n   Dealer Blackjack.\n\n");
 			} else {
 				hitOrStay.equals("H");
 			}
 
-			while (player.getHandValue() < 21) {
+			while (player.getHandValue() < 21 && dealer.getHandValue() != 21) {
 				System.out.print("\n    [H]it or [S]tay? >>> ");
 				hitOrStay = input.next().toUpperCase();
 				if (hitOrStay.equals("S")) {
 					break;
 				} else if (hitOrStay.equals("H")) {
 					player.addToHand(deck.dealCard());
+					if (player.getHandValue() > 21) {
+						if (player.hasAce()) {
+							player.aceToOne();
+						}
+					}
 					System.out.println("\n" + player.showCard());
 					System.out.println("New total : " + player.getHandValue());
 					if (player.getHandValue() > 21) {
 						System.out.println("\n\tBust!! You lose.\n");
-						break;
-					} else if (player.getHandValue() == 21) {
-						System.out.println("\t21!!!");
-						break;
 					}
+				} else if (player.getHandValue() == 21) {
+					System.out.println("\n\t21!!!");
+					break;
 				} else {
 					System.out.println("Bad input, please enter \"H\" or \"S\"");
 				}
@@ -91,6 +95,11 @@ public class Blackjack {
 				System.out.println("    Dealer total : " + dealer.getHandValue());
 				while (dealer.getHandValue() < 17) {
 					dealer.addToHand(deck.dealCard());
+					if (dealer.getHandValue() > 21) {
+						if (dealer.hasAce()) {
+							dealer.aceToOne();
+						}
+					}
 					System.out.println("\n" + dealer.showCard());
 					System.out.println("New total : " + dealer.getHandValue());
 					if (dealer.getHandValue() > 21) {
@@ -114,9 +123,13 @@ public class Blackjack {
 
 			player.resetHand();
 			dealer.resetHand();
+			if (deck.cardsRemaining() < 15) {
+				System.out.println("\n\t\tToo few cards for a full round.\n\t\tDeck Shuffled.");
+				deck = new Deck();
+			}
 			if (deck.cardsRemaining() < 26) {
 				cont = "";
-				System.out.print("\n\n50% of Deck Used. Would you like to re-shuffle and continue? (Y/N) : ");
+				System.out.print("\n\n50% or more of Deck Used. Would you like to re-shuffle? (Y/N) : ");
 				while (!(cont.equals("Y") || cont.equals("N"))) {
 					cont = input.next().toUpperCase();
 					if (cont.equals("Y")) {
@@ -134,7 +147,7 @@ public class Blackjack {
 			again = input.next().toUpperCase();
 			while (!(again.equals("Y") || again.equals("N"))) {
 				System.out.print("Bad input. Please enter \"Y\" or \"N\" : ");
-				again = input.next();
+				again = input.next().toUpperCase();
 			}
 		}
 	}

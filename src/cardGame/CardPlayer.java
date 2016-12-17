@@ -13,6 +13,14 @@ public class CardPlayer {
 		return name;
 	}
 	
+	public void aceToOne() {
+		hand.aceToOne();
+	}
+	
+	public boolean hasAce() {
+		return (hand.hasAce()) ? true : false;
+	}
+	
 	public Hand getHand() {
 		return hand;
 	}

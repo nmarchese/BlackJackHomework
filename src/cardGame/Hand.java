@@ -4,13 +4,35 @@ import java.util.*;
 
 public class Hand {
 	private List<Card> hand;
+	private boolean hasAce;
 	
 	public Hand() {
 		hand = new LinkedList<>();
+		hasAce = false;
 	}
 	
 	public void addCard(Card card) {
 		hand.add(card);
+		if (card.isAce()) {
+			hasAce = true;
+		}
+	}
+	
+	public boolean hasAce() {
+		if (hasAce) {
+			hasAce = false;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void aceToOne() {
+		for (Card card : hand) {
+			if (card.getValue() == 11) {
+				card.aceToOne();
+			}
+		}
 	}
 	
 	public int getHandValue() {
@@ -42,5 +64,7 @@ public class Hand {
 	public int getCardValue(int pos) {
 		return hand.get(pos).getValue();
 	}
+	
+	
 	
 }
