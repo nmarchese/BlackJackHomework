@@ -3,10 +3,12 @@ package cardGame;
 public class CardPlayer {
 	private Hand hand;
 	private String name;
+	private int wallet;
 	
 	public CardPlayer(String name) {
 		this.name = name;
 		hand = new Hand();
+		wallet = 200;
 	}
 	
 	public String name() {
@@ -21,6 +23,16 @@ public class CardPlayer {
 		return (hand.hasAce()) ? true : false;
 	}
 	
+	// Wallet methods
+	public int getWallet() {
+		return wallet;
+	}
+	
+	public void updateWallet(int walletChange) {
+		wallet += walletChange;
+	}
+	
+	// Hand methods
 	public Hand getHand() {
 		return hand;
 	}
